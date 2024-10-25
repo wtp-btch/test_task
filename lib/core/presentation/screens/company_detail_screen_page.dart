@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_task_company/core/domain/state/state_manager.dart';
 import 'package:test_task_company/core/domain/entity/company_entity.dart';
 
-class CompanyDetailScreen extends StatelessWidget {
+class CompanyDetailScreen extends ConsumerWidget {
   final CompanyEntity company;
 
   const CompanyDetailScreen({super.key, required this.company});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final manager = ref.read(stateManagerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Информация о компании'),
@@ -16,7 +21,10 @@ class CompanyDetailScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              context.push('/edit', extra: company);
+              context.push('/edit', extra: {
+                'company': company,
+                'updateCompany': manager.updateCompany,
+              },);
             },
           ),
         ],
@@ -29,7 +37,6 @@ class CompanyDetailScreen extends StatelessWidget {
               'Название компании: ${company.name}',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            _buildDetailItem('Название компании', company.name),
             const Text(
               'Контакты',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
