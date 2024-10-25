@@ -55,6 +55,7 @@ class _CompanyEditScreenState extends ConsumerState<CompanyEditScreen> {
       appBar: AppBar(
         title:
         Text(widget.company == null ? 'Новая компания' : 'Редактирование данных компании'),
+        backgroundColor: Colors.purple[100],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
