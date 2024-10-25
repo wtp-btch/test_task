@@ -1,33 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_task_company/core/domain/state/state_manager.dart';
 import 'package:test_task_company/core/domain/entity/company_entity.dart';
 
-class CompanyDetailScreen extends ConsumerWidget {
+class CompanyDetailScreen extends StatelessWidget {
   final CompanyEntity company;
 
   const CompanyDetailScreen({super.key, required this.company});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-
-    final manager = ref.read(stateManagerProvider);
+  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Информация о компании'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              context.push('/edit', extra: {
-                'company': company,
-                'updateCompany': manager.updateCompany,
-              },);
-            },
-          ),
-        ],
+        backgroundColor: Colors.purple[100],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
